@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Andrea Cerutti</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo">Andrea Cerutti</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="interpretability.html">MecInt</a></li>
+        <li><a href="pn-signals.html">PNRelay</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main style="width: 80%; padding: 1rem;">
+    <div class="about-columns" style="width: 100%; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2rem;">
+      <div class="about-photo" style="flex: 1 1; background-color: #212731; color: #ECEFF4; padding: 3rem; border-radius: 8px; min-width: 10vh;">
+        <img src="images/myself.jpg" alt="Andrea Cerutti" style="max-width: 100%; height: auto; border-radius: 6px;" />
+        <h2>Resources:</h2>
+        <ul class="res-list" style="list-style-position: inside; padding-left: 1.5em;">
+          <li>
+            <a href="andrea_cerutti_cv.pdf" download><strong>Curriculum Vitae</strong></a>
+          </li>
+          <li>
+            <a href="https://github.com/andreac01" target="_blank"><strong>GitHub</strong></a>
+          </li>
+          <li>
+            <a href="https://scholar.google.com/citations?user=_WfCC20AAAAJ&hl=it" target="_blank"><strong>Google Scholar</strong></a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/andrea-cerutti-719474271/" target="_blank"><strong>LinkedIn</strong></a>
+          </li>
+          <li>
+            <a href="mailto:andrea2.cerutti@mail.polimi.it"><strong>Email</strong></a>
+          </li>
+        </ul>
+      </div>
+      <div class="about-content" style="flex: 3 1; padding: 1rem; min-width: 30vh;">
+        <h1>About</h1>
+        <p>
+          <br></br>
+          Currently, living in Borgomanero (Italy) I am a MSc Computer Science (Artificial Intelligence) student at Politecnico di Milano.
+          I had an exchange at EPFL and I am a student of Alta Scuola Politecnica. <br></br>
+          I am passionate about understanding and building Deep Learning models, tinkering with Software and playing Football. <br></br>
+          Now, finishing my MSc thesis on Mechanistic Interpretability of Large Language Models, I am looking forward to continuing my research either in this field or, more broadly, in AI.
+        </p>
+        <br></br>
+        <h1>Research Interests</h1>
+        <p>
+          My main research interest is <strong>Mechanistic Interpretability</strong>, with a focus on understanding how Large Language Models work internally, and developing tools to visualize and analyze their behavior. <br></br>
+          I am also interested in <strong>Deep Learning</strong> in general and, as an example, I found fascinating working on Electroneurography (ENG) signal analysis and classification, with the goal of enabling real-time control of otherwise paralyzed limbs as part of the PNRelay project. <br></br>
+          Finally, I have also a strong intereset in <strong>Robotics</strong>, with hands-on experience on agricultural autonomous robots, taking part to the 2023 Field Robot Event.
+        </p>
+        <br></br>
+        <h2>Mechanistic Interpretability</h2>
+        <p>
+          My MSc thesis is focused on Mechanistic Interpretability applied to Large Language Models, under the supervision of Prof. Mark Carman James and Niccolò Brunello. <br></br>
+          The goal of my research is to develop methods to better understand how these models work internally, and to visualize their behavior in a way that is interpretable by humans. <br></br>
+          Up to now we developed a method to efficiently isolate the effect of specific computational paths in transformer models. This allows us to identify the most relevant sequence of components (attention heads and MLPs) that contribute to a specific prediction. <br></br>
+          Early results of this methodology lead to a paper, currently accepted at EMNLP 2025 (BlackBox NLP Shared Task). <br></br>
+
+          The code developed during my thesis is available both on GitHub (<a href="https://github.com/andreac01/IPE-LatentCircuitIdentification.git">IPE-LatentCircuitIdentification</a>) and as a python package (<a href="https://pypi.org/project/ipe/" target="_blank" rel="noopener noreferrer">ipe</a>) which is currently under development. Documentation for this project is hosted at (<a href="https://ipe-documentation.ceru-sh.site" target="_blank" rel="noopener noreferrer">ipe-documentation.ceru-sh.site</a>). <br></br>
+          I am also working on developing a cool interactive tool for visualizing the most relevant computational paths in transformer models, called <a href="https://path-visualizer.ceru-sh.site" target="_blank" rel="noopener noreferrer">Transformer Path Visualizer</a>.
+        </p>
+        <br></br>
+        <h2>PNRelay Project</h2>
+        <p>
+          As part of the Alta Scuola Politecnica I collaborated with the PNRelay project, I worked on developing deep learning models for real-time classification of peripheral nerve signals (ENG). <br></br>
+          The goal of the project is to enable real-time control of otherwise paralyzed limbs, by decoding the signals from the peripheral nerves prior to a damaged area and re-encoding them for downstream stimulation. <br></br>
+          I developed and trained several deep learning models, achieving state-of-the-art performance on the task. <br></br>
+          The project was a promoted by Dipartimento di Elettronica Informazione e Biotecnologie (DEIB) of Politecnico di Milano under the supervision of professor Maurizio Magarini and collaboration with professor Umberto Spagnolini.
+        </p>
+        <br></br>
+
+        <h2>Publications</h2>
+        <ul class="pub-list" style="list-style-position: inside; padding-left: 1.5em;">
+          <li>
+            <strong>Coviello et al.</strong> - Research on PNRelay for real-time ENG classification.
+          </li>
+          <li>
+            <strong>Burinato et al.</strong>* - Peripheral nerve injury rehabilitation.
+          </li>
+          <li>
+            <strong>Zinzani et al.</strong>* - Robotic navigation in agricultural environments.
+          </li>
+          <li>
+            <strong>Brunello et al.</strong>* - Accepted, yet to be published: Isolating Path Effect - BlackBox NLP Shared Task (EMNLP).
+          </li>
+        </ul>
+        <p><em>* Equal contribution</em></p>
+        <br></br>
+
+        <h1>Curriculum Vitae</h1>
+        <p>
+          <a href="andrea_cerutti_cv.pdf" class="button" download>Download CV (PDF)</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+
+  <footer>
+	<div class="contact" aria-hidden="false">
+	  <a href="mailto:andrea2.cerutti@mail.polimi.it" title="Email"><img src="icons/mail.png" alt="email"></a>
+	  <a href="tel:+39 3314653046" title="Phone"><img src="icons/phone.png" alt="phone"></a>
+	  <a href="https://github.com/andreac01" title="GitHub" target="_blank" rel="noopener"><img src="icons/github.png" alt="github"></a>
+	  <a href="https://www.linkedin.com/in/andrea-cerutti-719474271/" title="LinkedIn" target="_blank" rel="noopener"><img src="icons/linkedin.png" alt="linkedin"></a>
+	</div>
+	<div style="color:var(--fg-muted);font-size:.9rem;">&copy; 2025 Andrea Cerutti</div>
+  </footer>
+</body>
+</html>

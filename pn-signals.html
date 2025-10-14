@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PNRelay Project - Andrea Cerutti</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1 class="logo">Andrea Cerutti</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="interpretability.html">MecInt</a></li>
+        <li><a href="pn-signals.html" class="active">PNRelay</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main style="width: 80%; padding: 1rem;">
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+      
+      <!-- Intro Section -->
+      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h2>The PNRelay Project</h2>
+        <p>
+          The <strong>PNRelay Project</strong> is a multidisciplinary research effort aimed at restoring
+          lost motor and sensory functions in patients with <strong>Peripheral Nerve Injuries (PNIs)</strong>.
+          These injuries disrupt the flow of neural signals between the brain and the body, leading to
+          paralysis, loss of sensation, and chronic pain.
+        </p>
+        <p>
+          PNRelay introduces a novel concept: an <strong>artificial relay</strong> that
+          bridges damaged nerves through a combination of bioelectronics, signal processing, and machine learning.
+          The system captures neural signals before the lesion, interprets them using deep learning models, and
+          reinjects the correct signals beyond the injury site, effectively acting as a digital nerve bridge.
+        </p>
+      </section>
+
+      <!-- My Contribution -->
+      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h2>My Contribution: Signal Analysis & Classification</h2>
+        <p>
+          My main contribution within the PNRelay Project focuses on the <strong>Signal Analysis</strong> pipeline, 
+          developing algorithms and models to decode <em>ElectroNeuroGraphic (ENG)</em> signals from peripheral nerves.
+          The goal is to interpret these low-amplitude, noisy biological signals in real time, enabling seamless
+          artificial neural relaying.
+        </p>
+        <div style="text-align:center; margin:1.5rem 0;">
+          <img src="images/preprocessing_pipeline.png" alt="ENG preprocessing pipeline" style="width:85%; border-radius:8px; background: #92a3b5;" />
+          <p style="font-size: 0.9rem; color: #D8DEE9;">Preprocessing pipeline for denoising and segmenting ENG signals.</p>
+        </div>
+        <p>
+          This work integrates <strong>signal processing, statistical outlier detection, and deep learning</strong>.
+          Below is an overview of the main stages of my contribution.
+        </p>
+      </section>
+
+      <!-- Signal Preprocessing -->
+      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h3>1. Preprocessing & Noise Removal</h3>
+        <p>
+          ENG signals are extremely faint (below 50 µV) and heavily contaminated by electromyographic (EMG)
+          interference. To extract meaningful information, I developed a multi-stage preprocessing pipeline:
+        </p>
+        <ul style="list-style-position: inside; line-height: 1.6;">
+          <li><strong>Clamping:</strong> Removes implausible spikes by limiting the signal range to ±30 µV.</li>
+          <li><strong>Filtering:</strong> Applies an 8th-order Butterworth band-pass filter (800-2200 Hz) to isolate the ENG frequency band.</li>
+          <li><strong>Downsampling:</strong> Reduces sampling rate to 5 kHz, balancing resolution and real-time feasibility.</li>
+          <li><strong>Activity Detection:</strong> Segments the data into active 100 ms windows for efficient classification.</li>
+        </ul>
+        <p>
+          These steps significantly improved the signal-to-noise ratio and allowed the neural decoder to focus on meaningful segments.
+        </p>
+      </section>
+
+      <!-- Outlier Removal -->
+      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h3>2. Outlier Removal via Power Spectral Density (PSD)</h3>
+        <p>
+          One of my key research contributions was the design of a <strong>PSD-based outlier removal algorithm</strong>,
+          published in <em>“PSD-Based Outlier Removal for Enhancing ENG Signal Analysis and Classification”</em> (2025).
+          The method detects abnormal samples whose spectral power deviates significantly from the dataset distribution.
+        </p>
+        <div style="text-align:center; margin:1.5rem 0;">
+          <img src="images/PSD_variance_pre.png" alt="PSD variance before removal" style="width:35%; border-radius:8px; margin-right:10px;" />
+          <img src="images/PSD_variance_after.png" alt="PSD variance after removal" style="width:35%; border-radius:8px;" />
+          <p style="font-size: 0.9rem; color: #D8DEE9;">Variance of the Power Spectral Density before (left) and after (right) outlier removal.</p>
+        </div>
+        <p>
+          By iteratively removing samples exceeding <code>μ + 5σ</code> in the frequency domain, classification
+          accuracy improved by <strong>16.9%</strong>, demonstrating the detrimental impact of unfiltered outliers
+          on model performance.
+        </p>
+      </section>
+
+      <!-- Deep Learning -->
+      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h3>3. Deep Learning for ENG Classification</h3>
+        <p>
+          I adapted and improved several <strong>Convolutional Neural Network architectures</strong> to classify ENG signals
+          with high accuracy and low latency:
+        </p>
+        <ul style="list-style-position: inside; line-height: 1.6;">
+          <li><strong>ENGNet:</strong> Adaptation of EEGNet with separable and depthwise convolutions for efficient feature extraction.</li>
+          <li><strong>Reverse ENGNet:</strong> A novel reordering of the convolutional layers, achieving the same representational power with <strong>20x fewer FLOPs</strong>.</li>
+          <li><strong>Inception Time (IT):</strong> A multiscale CNN model processing temporal features at different resolutions.</li>
+          <li><strong>Single-Block IT:</strong> A lightweight variant reducing parameters by 7.5x with comparable accuracy.</li>
+        </ul>
+        <div style="text-align:center; margin:1.5rem 0; background: #92a3b5; border-radius: 8px; padding: 1rem;">
+          <img src="images/ENGNet.png" alt="ENGNet architecture" style="width:90%; border-radius:8px;" />
+          <p style="font-size: 0.9rem; color: #222938;">ENGNet architecture adapted for ENG decoding.</p>
+        </div>
+        <p>
+          These architectures achieved classification performance exceeding <strong>92% macro F1 score</strong>,
+          establishing a new benchmark for efficient neural decoding on ENG datasets.
+        </p>
+      </section>
+
+      <!-- Results -->
+      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h3>Results and Key Insights</h3>
+        <div style="text-align:center; margin:1.5rem 0;">
+          <img src="images/DL_results.png" alt="Model performance comparison" style="width:60%; border-radius:8px;  background: #92a3b5;" />
+          <p style="font-size: 0.9rem; color: #D8DEE9;">Performance comparison of four deep learning architectures.</p>
+        </div>
+        <p>
+          The proposed <strong>Reverse ENGNet</strong> achieved a <strong>20x computational speedup</strong>
+          while maintaining equivalent F1 score to the original ENGNet, making it ideal for future
+          <strong>fully implanted real-time systems</strong>. Similarly, the Single-Block IT model demonstrated
+          a strong trade-off between performance and simplicity.
+        </p>
+      </section>
+
+      <!-- Closing -->
+      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h2>Conclusion</h2>
+        <p>
+          My work on the PNRelay Project contributed to developing an <strong>end-to-end signal analysis framework</strong>
+         , from preprocessing to deep learning-based classification, paving the way toward a functional
+          artificial neural bridge.
+        </p>
+        <p>
+          These findings are currently being integrated into the next PNRelay prototype, with ongoing research
+          aimed at real-time, low-power implementation suitable for <strong>fully implanted devices</strong>.
+        </p>
+        <p>
+          The combination of <em>neuroscience, bioelectronics, and AI</em> at the core of PNRelay
+          represents a promising step toward restoring function and dignity to patients affected by peripheral nerve injuries.
+        </p>
+      </section>
+
+      <!-- Related Work -->
+      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h3>Related Work</h3>
+        <ul class="pnrelay-list" style="list-style-position: inside; padding-left: 1.5em;">
+          <li>
+            <a href="https://ieeexplore.ieee.org/abstract/document/10530475" download>Coviello, A., Linsalata, F., Spagnolini, U., & Magarini, M. (2024). Artificial neural networks-based real-time classification of eng signals for implanted nerve interfaces. IEEE Journal on Selected Areas in Communications, 42(8), 2080-2095.</a>
+          </li>
+          <li>
+            <a href="https://ieeexplore.ieee.org/abstract/document/10199055" target="_blank">Vasta, E., Coviello, A., Spagnolini, U., & Magarini, M. (2023, July). Classification of sensory neural signals through deep learning methods. In IEEE EUROCON 2023-20th International Conference on Smart Technologies (pp. 313-318). IEEE.</a>
+          </li>
+          <li>
+            <a href="https://ieeexplore.ieee.org/abstract/document/11059405" target="_blank">Coviello, A., Mura, S., Cerutti, A., Spagnolini, U., & Magarini, M. (2025, May). PSD-Based Outlier Removal for Enhancing ENG Signal Analysis and Classification. In 2025 19th International Symposium on Medical Information and Communication Technology (ISMICT) (pp. 1-6). IEEE.</a>
+          </li>
+          <li>
+            <a href="https://re.public.polimi.it/handle/11311/1279190" target="_blank">Burinato, F., Simeone, A., Cerutti, A., Franceschini, G., Coviello, A., Kumar, A., & Magarini, M. (2024). Advanced Implantable Devices and Data Analysis Techniques for Peripheral Nerve Injury Treatment: Challenges and Innovations. EAI BODYNETS 2024, 1-16.</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+	<div class="contact" aria-hidden="false">
+	  <a href="mailto:andrea2.cerutti@mail.polimi.it" title="Email"><img src="icons/mail.png" alt="email"></a>
+	  <a href="tel:+39 3314653046" title="Phone"><img src="icons/phone.png" alt="phone"></a>
+	  <a href="https://github.com/andreac01" title="GitHub" target="_blank" rel="noopener"><img src="icons/github.png" alt="github"></a>
+	  <a href="https://www.linkedin.com/in/andrea-cerutti-719474271/" title="LinkedIn" target="_blank" rel="noopener"><img src="icons/linkedin.png" alt="linkedin"></a>
+	</div>
+	<div style="color:var(--fg-muted);font-size:.9rem;">&copy; 2025 Andrea Cerutti</div>
+  </footer>
+</body>
+</html>

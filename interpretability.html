@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mechanistic Interpretability - Andrea Cerutti</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo">Andrea Cerutti</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="interpretability.html" class="active">MecInt</a></li>
+        <li><a href="pn-signals.html">PNRelay</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main style="width: 80%; padding: 1rem;">
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+      
+      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h2>Mechanistic Interpretability</h2>
+        <br></br>
+        <p>
+          Mechanistic interpretability aims to understand <strong>how large language models (LLMs)</strong> internally compute their predictions.
+          Rather than treating neural networks as opaque black boxes, it seeks to identify the <em>causal mechanisms</em>, the specific circuits, neurons,
+          and connections, that give rise to particular model behaviors.
+        </p>
+        <p>
+          This field sits at the intersection of <strong>causal inference</strong>, <strong>representation analysis</strong>, and <strong>information flow tracing</strong>.
+          By uncovering the internal logic of models, mechanistic interpretability helps us build AI systems that are
+          more <em>transparent, trustworthy, and steerable</em>.
+        </p>
+      </section>
+
+      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h2>Master's Thesis: Isolating Path Effects (IPE)</h2>
+        <br></br>
+        <p>
+          My MSc thesis, conducted under the supervision of <strong>Prof. Mark Carman James</strong> and <strong>Niccolò Brunello</strong> at <em>Politecnico di Milano</em>,
+          focuses on developing a new technique for <strong>path-based circuit discovery</strong> in Transformer models.
+        </p>
+        <p>
+          The core idea is to isolate and quantify the effect of individual <strong>computational paths</strong>, that is, sequences of attention heads and MLPs, 
+          connecting the input embeddings to the final logits. This allows us to map the causal flow of information through the model and
+          understand how specific behaviors arise.
+        </p>
+
+        <div style="margin-top: 1.5rem;">
+          <h3 style="margin-bottom: 0.5rem;">Key Contributions</h3>
+          <ul style="list-style-position: inside; line-height: 1.6;">
+            <li>Introduced <strong>Isolating Path Effects (IPE)</strong>, a method for identifying and ablating full computational paths.</li>
+            <li>Developed an efficient search algorithm to discover the most relevant paths for a given task.</li>
+            <li>Validated the method on the <em>Indirect Object Identification (IOI)</em> task, recovering known circuits from prior work.</li>
+            <li>Ranked among the top submissions in the <strong>Mechanistic Interpretability Benchmark (MIB) Shared Task</strong> at <strong>EMNLP 2025</strong>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h2>Why Path-Based Analysis?</h2>
+        <div style="text-align:center; margin:1.5rem 0;">
+          <img src="images/paths_circuit.png" alt="Example of circuit as a set of paths" style="width:90%; border-radius:8px;  background: #92a3b5;" />
+          <p style="font-size: 0.9rem; color: #D8DEE9;">Set of most relevant paths composing the Indirect Object Identification (IOI) circuit in GPT-2 small model.</p>
+        </div>
+        <p>
+          Traditional circuit discovery methods, such as Edge Activation Patching or Edge Attribution Patching, focus on identifying <em>important edges</em> between components.
+          However, this edge-centric view can obscure the bigger picture of how information flows through a network.
+        </p>
+        <p>
+          <strong>IPE</strong> instead adopts a <strong>path-centric perspective</strong>, tracing complete information routes from input tokens to outputs.
+          This enables finer-grained causal interventions, reduces contamination from irrelevant edges, and yields more interpretable explanations
+          of model behavior.
+        </p>
+        <p>
+          By isolating entire paths, we can better understand the <em>mechanisms</em> by which models compute their predictions,
+          paving the way for more effective interpretability and model editing techniques. 
+          An interesting visualization that can be achieved with this method is the decoding of the intermediate message flowing through a path.
+          This allows us to peek into the "thought process" of the model as it arrives at a prediction.
+        </p>
+        <div style="text-align:center; margin:1.5rem 0;">
+          <img src="images/path_decoding.png" alt="Example of decoding the intermediate message flowing through a path" style="width:40%; border-radius:8px;  background: #92a3b5;" />
+          <p style="font-size: 0.9rem; color: #D8DEE9;"> Decoding of the message flowing through the most important path in the Indirect Object Identification (IOI) circuit.</p>
+        </div>
+      </section>
+
+      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h2>Tools and Resources</h2>
+        <br></br>
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+          <div style="flex: 1; min-width: 250px;">
+            <h3>Code & Package</h3>
+            <ul style="list-style-position: inside; line-height: 1.6;">
+              <li><a href="https://github.com/andreac01/IPE-LatentCircuitIdentification" target="_blank">GitHub Repository: IPE-LatentCircuitIdentification</a></li>
+              <li><a href="https://ipe-documentation.ceru-sh.site/" target="_blank">Documentation: ipe-documentation.ceru-sh.site</a></li>
+              <li><a href="https://pypi.org/project/ipe/" target="_blank">PyPI Package: ipe</a></li>
+            </ul>
+          </div>
+
+          <div style="flex: 1; min-width: 250px;">
+            <h3>Visualization</h3>
+            <ul style="list-style-position: inside; line-height: 1.6;">
+              <li><a href="https://path-visualizer.ceru-sh.site/" target="_blank">Transformer Path Visualizer</a> - interactive visualization tool</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+        <h2>Scientific Context</h2>
+        <br></br>
+        <p>
+          Mechanistic interpretability is rapidly evolving, with frameworks like <strong>ACDC</strong> (Automated Circuit DisCovery) and 
+          <strong>Edge Attribution Patching</strong> providing the groundwork for systematic causal analysis of model components.
+          IPE builds on these methods but extends them by isolating the <em>entire computational flow</em> responsible for a behavior.
+        </p>
+        <p>
+          By combining path-level interventions with efficient search strategies, this work contributes toward the long-term goal of
+          <strong>identifying, visualizing, and editing internal mechanisms of LLMs</strong> ,  a key step toward safe and interpretable AI.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+	<div class="contact" aria-hidden="false">
+	  <a href="mailto:andrea2.cerutti@mail.polimi.it" title="Email"><img src="icons/mail.png" alt="email"></a>
+	  <a href="tel:+39 3314653046" title="Phone"><img src="icons/phone.png" alt="phone"></a>
+	  <a href="https://github.com/andreac01" title="GitHub" target="_blank" rel="noopener"><img src="icons/github.png" alt="github"></a>
+	  <a href="https://www.linkedin.com/in/andrea-cerutti-719474271/" title="LinkedIn" target="_blank" rel="noopener"><img src="icons/linkedin.png" alt="linkedin"></a>
+	</div>
+	<div style="color:var(--fg-muted);font-size:.9rem;">&copy; 2025 Andrea Cerutti</div>
+  </footer>
+</body>
+</html>

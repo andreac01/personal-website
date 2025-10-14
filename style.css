@@ -1,0 +1,182 @@
+:root{
+  --bg: #2e3040;
+  --bg-light: #33394d;
+  --fg: #ECEFF4;
+  --fg-muted: #D8DEE9;
+  --accent: #88C0D0;
+  --accent2: #81A1C1;
+  --accent3: #A3BE8C;
+  --font-mono: "Helvetica Neue", "Ubuntu", Helvetica, Arial, sans-serif;
+}
+
+/* Reset + base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+html { background-color: var(--bg); }
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  color: var(--fg);
+  line-height: 1.5;
+  font-size: 1.2rem;
+}
+
+/* Header */
+header {
+  background: var(--bg-light);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(136,192,208,0.08);
+  font-size: 1.2rem;
+}
+.logo { color: var(--accent); font-weight: 700; font-size: 1.25rem; letter-spacing: .4px; }
+nav ul { display:flex; gap: .6rem; list-style: none; align-items:center; }
+nav a {
+  color: var(--fg-muted); text-decoration: none; padding: .45rem .7rem; border-radius: 6px;
+  transition: background .16s ease, color .16s ease, transform .12s ease;
+  font-size: 1.2rem;
+}
+nav a:hover { background: rgba(153, 188, 223, 0.12); color: var(--fg); transform: translateY(-2px); }
+nav a.active { background: rgba(154, 207, 221, 0.12); color: var(--fg); }
+
+/* Main / Hero */
+main { flex:1; padding: 2.2rem 1.1rem; margin: 0 auto; width: 100%; }
+.hero {
+  display:flex; flex-direction: column; align-items:center; text-align:center;
+  padding: 2rem 1rem; gap: .9rem;
+}
+.hero h1 {
+  font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+  color: var(--accent); line-height: 1.05; margin-bottom: .4rem;
+}
+
+/* Typing span - initial (no animation yet) */
+.typing {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;           /* start closed */
+  border-right: 2px solid var(--accent);
+  padding-right: 6px;
+  box-sizing: content-box; /* ensure border doesn't affect measured width */
+  vertical-align: middle;
+}
+
+/* When js adds .is-typing, the animations start */
+.typing.is-typing {
+  animation:
+    typing var(--typing-duration, 2.4s) steps(var(--typing-steps, 30)) forwards,
+    blink 0.8s step-end infinite;
+}
+
+/* animate width to the measured CSS var --typing-width */
+@keyframes typing {
+  to { width: var(--typing-width); }
+}
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Features grid */
+.features {
+  margin-top: 2.2rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.card {
+  background: linear-gradient(180deg, rgba(59,66,82,0.8), rgba(47,54,68,0.78));
+  padding: 1.1rem;
+  border-radius: 10px;
+  border-left: 3px solid rgba(163,190,140,0.12);
+  transition: transform .22s ease, box-shadow .22s ease, border-left-color .22s ease;
+}
+
+.card.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Define the ending state for shown cards, with a smooth transition */
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.6s ease-out, transform 1.6s ease-out;
+}
+
+.card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); border-left-color: var(--accent3); }
+.card h3 { color: var(--accent2); margin-bottom: .45rem; font-size: 1.05rem; }
+
+/* Footer */
+footer {
+  background: var(--bg-light);
+  padding: .9rem 1rem;
+  border-top: 1px solid rgba(129,161,193,0.06);
+  text-align:center;
+  font-size: .92rem;
+}
+.contact { margin-bottom: .5rem; }
+.contact a { margin: 0 .45rem; display:inline-block; }
+.contact img { width:22px; height:22px; filter: invert(92%); transition: transform .14s ease; }
+.contact img:hover { transform: scale(1.15) rotate(6deg); }
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .typing.is-typing { animation: none; width: auto; border-right: none; }
+  .card, nav a { transition: none; transform: none; }
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  header { padding: .75rem 1rem; }
+  main { padding: 1.25rem; }
+  .hero { padding: 1.2rem 0.6rem; }
+  .card { padding: .9rem; }
+}
+
+
+/* Interaction animations */
+/* In your style.css */
+.is-hidden {
+  opacity: 0;
+  /* Add a smooth transition for the reveal */
+  transition: opacity 1s ease-in, transform 1s ease-in;
+}
+
+/* Optional: Add this to make the text appear from below */
+.is-hidden-start {
+  transform: translateY(10px);
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* card link styles */
+.card-link {
+  text-decoration: none; /* Removes the underline */
+  color: inherit; /* Inherits the text color from its parent */
+}
+
+.card-link:hover .card {
+  transform: translateY(-5px); /* Adds a subtle lift on hover for feedback */
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-link:hover {
+  cursor: pointer; /* Changes the cursor to a hand to indicate it's clickable */
+}
+
+a {
+  color: #7ecbff; /* Light blue for all links */
+  transition: color 0.18s ease;
+}
+a:hover, a:focus {
+  color: #b3e6ff; /* Even lighter blue on hover/focus */
+}

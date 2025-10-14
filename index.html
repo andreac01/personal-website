@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Andrea Cerutti — AI · Robotics · Linux</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo">Andrea Cerutti</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="interpretability.html">MecInt</a></li>
+        <li><a href="pn-signals.html">PNRelay</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main style="width: 55%;">
+
+	<div class="card-div">
+	<section class="hero" aria-labelledby="hero-title">
+		<h1 id="hero-title"><span class="typing" id="whoami">Hi — I'm Andrea Cerutti</span></h1>
+		<p class="is-hidden" style="color:var(--fg-muted); max-width:65vw;">
+			MSc Computer Science (AI) · Deep Learning · Mechanistic Interpretability · Robotics · Linux tinkerer<br></br>
+			I enjoy digging into the challenges, starting from the low level code to deploying user-friendly visualizations, all this while building a deeper understanding of the topic along the journey.
+		</p>
+	</section>
+	<section class="features" aria-label="Highlights">
+		<a href="about.html" class="card-link">
+			<article class="card hidden">
+			<h3>🤷‍♂️ About Page</h3>
+			<p>A more complete about page presenting myself, my background and interests.
+				<br></br>
+			</p>
+			</article>
+		</a>	
+
+		<a href="interpretability.html" class="card-link">
+			<article class="card hidden">
+			<h3>🔬 Mechanistic Interpretability</h3>
+			<p>Developing methods to better understand large language models.<br></br><br></p>
+			</article>
+		</a>
+
+		<a href="pn-signals.html" class="card-link">
+			<article class="card hidden">
+			<h3>ﮩ٨ـ Peripheral Nerve Signals</h3>
+			<p>From deep learning to real-time ENG classification for peripheral nerve signals on implantable divices.</p>
+			</article>
+		</a>
+	</section>
+
+	<section class="features" aria-label="Highlights">
+		<a href="https://poul.org/" class="card-link">
+			<article class="card hidden">
+			<h3>💻 FOSS & Hardware</h3>
+			<p>Politecnico Open Unix Labs member helped with courses, workshops, management tools, and social media.</p>
+			</article>
+		</a>
+
+		<a href="https://fieldrobot.nl/event/index.php/2023/06/16/the-final-results-of-the-field-robot-event-2023-for-all-5-tasks-and-the-overall-standings-are-known/" class="card-link">
+			<article class="card hidden">
+			<h3>🤖 Robotics</h3>
+			<p>Hands on experience on agricultural autonomous robots, taking part to the 2023 Field Robot Event.</p>
+			</article>
+		</a>
+		<a href="https://path-visualizer.ceru-sh.site" class="card-link">
+			<article class="card hidden">
+			<h3>🔍 Transformer Path Visualizer</h3>
+			<p>Cool interactive tool for visualizing the most relevant computational paths in transformer models.<br></br></p>
+			</article>
+		</a>	
+	</section>
+  </main>
+
+  <footer>
+	<div class="contact" aria-hidden="false">
+	  <a href="mailto:andrea2.cerutti@mail.polimi.it" title="Email"><img src="icons/mail.png" alt="email"></a>
+	  <a href="tel:+39 3314653046" title="Phone"><img src="icons/phone.png" alt="phone"></a>
+	  <a href="https://github.com/andreac01" title="GitHub" target="_blank" rel="noopener"><img src="icons/github.png" alt="github"></a>
+	  <a href="https://www.linkedin.com/in/andrea-cerutti-719474271/" title="LinkedIn" target="_blank" rel="noopener"><img src="icons/linkedin.png" alt="linkedin"></a>
+	</div>
+	<div style="color:var(--fg-muted);font-size:.9rem;">&copy; 2025 Andrea Cerutti</div>
+  </footer>
+
+ 	<!-- Inline JS: measures the exact width of the text and triggers the typing animation -->
+	<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('whoami');
+    if (!el) return;
+
+    const heroSection = document.querySelector('.hero');
+    const description = document.querySelector('.hero p');
+    
+	// Measure and set up typing animation
+	el.style.display = el.style.display || 'inline-block';
+	el.style.width = 'auto';
+	const measured = el.getBoundingClientRect().width;
+	el.style.width = '0px';
+	el.style.setProperty('--typing-width', measured + 'px');
+
+	const txt = el.textContent || '';
+	const steps = Math.max(8, Math.floor(txt.length * 1.2));
+	const duration = Math.max(0.7, Math.min(0.5, txt.length * 0.12));
+
+	el.style.setProperty('--typing-steps', steps);
+	el.style.setProperty('--typing-duration', duration + 's');
+
+    el.classList.add('is-typing'); // Start the typing animation
+
+    el.addEventListener('animationend', () => {
+        // Step 1: Move the entire hero section up smoothly
+        heroSection.classList.add('moved-up');
+
+        // Step 2: After a short delay, fade in the description
+        setTimeout(() => {
+            description.classList.add('is-fading-in');
+
+            // Step 3: Now, initialize and trigger the Intersection Observer
+            // This ensures the cards and footer are only observed after
+            // the hero animation sequence is complete.
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            // Target both the .card and the footer
+            document.querySelectorAll('.card.hidden, footer').forEach((el) => observer.observe(el));
+
+			//target the description
+			observer.observe(description);
+        }, 300); // 800ms delay to give time for the hero section to move up
+    });
+});
+	</script>
+</body>
+</html>
+
