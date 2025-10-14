@@ -6,7 +6,7 @@
   <title>Mechanistic Interpretability - Andrea Cerutti</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="main-body">
   <header style="display: flex; align-items: center; justify-content: space-between;">
     <h1 class="logo">Andrea Cerutti</h1>
     <div style="display: flex; align-items: center; gap: 1.5rem;">
@@ -14,33 +14,13 @@
       <nav>
         <ul style="display: flex; gap: 1rem; margin: 0; padding: 0; list-style: none;">
           <li><a href="index.html">Home</a></li>
-          <li><a href="interpretability.html" class="active">MecInt</a></li>
-          <li><a href="pn-signals.html">PNRelay</a></li>
+          <li class="nav-desktop"><a href="interpretability.html">MecInt</a></li>
+          <li class="nav-desktop"><a href="pn-signals.html">PNRelay</a></li>
           <li><a href="about.html">About</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const lightClass = 'light-mode';
-    function setTheme(dark) {
-      document.documentElement.classList.toggle(lightClass, dark);
-      toggleBtn.textContent = dark ? '☀️' : '🌙';
-      localStorage.setItem('theme', dark ? 'dark' : 'light');
-    }
-    toggleBtn.onclick = () => setTheme(!document.documentElement.classList.contains(lightClass));
-    // On load, set theme from localStorage or browser preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      setTheme(false);
-    } else if (savedTheme === 'dark') {
-      setTheme(true);
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(!prefersDark);
-    }
-  </script>
 
   <main style="width: 80%; padding: 1rem;">
     <div style="display: flex; flex-direction: column; gap: 2rem;">
@@ -127,7 +107,7 @@
           <div style="flex: 1; min-width: 250px;">
             <h3>Visualization</h3>
             <ul style="list-style-position: inside; line-height: 1.6;">
-              <li><a href="https://path-visualizer.ceru-sh.site/" target="_blank">Transformer Path Visualizer</a> - interactive visualization tool</li>
+              <li><a href="https://path-visualizer.ceru-sh.site/" target="_blank">Transformer Path Visualizer - interactive visualization tool</a></li>
             </ul>
           </div>
         </div>
@@ -161,3 +141,53 @@
   </footer>
 </body>
 </html>
+<script>
+  // Dark/Light mode toggle with preference persistence
+  const toggleBtn = document.getElementById('theme-toggle');
+  const lightClass = 'light-mode';
+  function setTheme(dark) {
+    document.documentElement.classList.toggle(lightClass, dark);
+    toggleBtn.textContent = dark ? '☀️' : '🌙';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }
+  toggleBtn.onclick = () => setTheme(!document.documentElement.classList.contains(lightClass));
+  // On load, set theme from localStorage or browser preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    setTheme(false);
+  } else if (savedTheme === 'dark') {
+    setTheme(true);
+  } else {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(!prefersDark);
+  }
+  // Responsive nav: hide desktop links on small screens
+  if (window.innerWidth <= 700) {
+    document.querySelectorAll('.nav-desktop').forEach(el => el.style.display = 'none');
+  }
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.nav-desktop').forEach(el => {
+    el.style.display = window.innerWidth <= 700 ? 'none' : '';
+    });
+  });
+  // Set background image based on theme
+  function setBackground() {
+    const body = document.getElementById('main-body');
+    const isLight = document.documentElement.classList.contains('light-mode');
+    let imgname = 'images/bg.png';
+    if (isLight) {
+      imgname = 'images/bg-light.png';
+    }
+    body.style.backgroundImage = `url('${imgname}')`;
+    body.style.backgroundSize = "cover"; // "contain": scales image to fit, may leave empty space; "auto": default size
+    body.style.backgroundRepeat = "repeat-y"; // "repeat": tiles image; "repeat-x": tiles horizontally; "repeat-y": tiles vertically
+    body.style.backgroundPosition = "center"; // "top", "bottom", "left", "right", "center center", "50% 50%": controls image alignment
+    body.style.backgroundAttachment = "fixed"; // "scroll": moves with content; "local": scrolls with element's content
+  }
+  window.addEventListener('resize', setBackground);
+  window.addEventListener('DOMContentLoaded', setBackground);
+
+  // Listen for theme changes
+  const observer = new MutationObserver(setBackground);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+</script>
