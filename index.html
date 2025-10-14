@@ -112,58 +112,76 @@
 
  	<!-- Inline JS: measures the exact width of the text and triggers the typing animation -->
 	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const el = document.getElementById('whoami');
+		if (!el) return;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const el = document.getElementById('whoami');
-    if (!el) return;
+		const heroSection = document.querySelector('.hero');
+		const description = document.querySelector('.hero p');
+		const cards = document.querySelectorAll('.card.hidden');
+		const footer = document.querySelector('footer');
 
-    const heroSection = document.querySelector('.hero');
-    const description = document.querySelector('.hero p');
-    
-	// Measure and set up typing animation
-	el.style.display = el.style.display || 'inline-block';
-	el.style.width = 'auto';
-	const measured = el.getBoundingClientRect().width;
-	el.style.width = '0px';
-	el.style.setProperty('--typing-width', measured + 'px');
+		// Helper: check if referrer is from same site but different page
+		function isInternalNavigation() {
+			try {
+				const ref = document.referrer;
+				if (!ref) return false;
+				const url = new URL(ref);
+				return url.hostname === location.hostname && url.pathname !== location.pathname;
+			} catch {
+				return false;
+			}
+		}
 
-	const txt = el.textContent || '';
-	const steps = Math.max(8, Math.floor(txt.length * 1.2));
-	const duration = Math.max(0.7, Math.min(0.5, txt.length * 0.12));
+		// Measure and set up typing animation
+		el.style.display = el.style.display || 'inline-block';
+		el.style.width = 'auto';
+		const measured = el.getBoundingClientRect().width;
+		el.style.width = '0px';
+		el.style.setProperty('--typing-width', measured + 'px');
 
-	el.style.setProperty('--typing-steps', steps);
-	el.style.setProperty('--typing-duration', duration + 's');
+		const txt = el.textContent || '';
+		const steps = Math.max(8, Math.floor(txt.length * 1.2));
+		const duration = Math.max(0.7, txt.length * 0.08);
 
-    el.classList.add('is-typing'); // Start the typing animation
+		el.style.setProperty('--typing-steps', steps);
+		el.style.setProperty('--typing-duration', duration + 's');
 
-    el.addEventListener('animationend', () => {
-        // Step 1: Move the entire hero section up smoothly
-        heroSection.classList.add('moved-up');
+		el.classList.add('is-typing'); // Always show hero animation
 
-        // Step 2: After a short delay, fade in the description
-        setTimeout(() => {
-            description.classList.add('is-fading-in');
+		function showCardsImmediately() {
+			heroSection.classList.add('moved-up');
+			description.classList.add('is-fading-in');
+			cards.forEach(card => card.classList.add('show'));
+			footer.classList.add('show');
+			description.classList.add('show');
+		}
 
-            // Step 3: Now, initialize and trigger the Intersection Observer
-            // This ensures the cards and footer are only observed after
-            // the hero animation sequence is complete.
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.2 });
+		if (isInternalNavigation()) {
+			// Skip waiting for animation, show cards right away
+			showCardsImmediately();
+		} else {
+			// Wait for hero animation to finish
+			el.addEventListener('animationend', () => {
+				heroSection.classList.add('moved-up');
+				setTimeout(() => {
+					description.classList.add('is-fading-in');
+					// Intersection Observer for cards and footer
+					const observer = new IntersectionObserver((entries) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('show');
+								observer.unobserve(entry.target);
+							}
+						});
+					}, { threshold: 0.2 });
 
-            // Target both the .card and the footer
-            document.querySelectorAll('.card.hidden, footer').forEach((el) => observer.observe(el));
-
-			//target the description
-			observer.observe(description);
-        }, 300); // 800ms delay to give time for the hero section to move up
-    });
-});
+					document.querySelectorAll('.card.hidden, footer').forEach((el) => observer.observe(el));
+					observer.observe(description);
+				}, 300);
+			});
+		}
+	});
 	</script>
 </body>
 </html>
