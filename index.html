@@ -7,17 +7,40 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1 class="logo">Andrea Cerutti</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="interpretability.html">MecInt</a></li>
-        <li><a href="pn-signals.html">PNRelay</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </nav>
-  </header>
+<header style="display: flex; align-items: center; justify-content: space-between;">
+	<h1 class="logo">Andrea Cerutti</h1>
+	<div style="display: flex; align-items: center; gap: 1.5rem;">
+		<button id="theme-toggle" aria-label="Toggle Dark/Light Mode" style="background: transparent; border: none; cursor: pointer;">🌙</button>
+		<nav>
+			<ul style="display: flex; gap: 1rem; margin: 0; padding: 0; list-style: none;">
+				<li><a href="index.html" class="active">Home</a></li>
+				<li><a href="interpretability.html">MecInt</a></li>
+				<li><a href="pn-signals.html">PNRelay</a></li>
+				<li><a href="about.html">About</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<script>
+	const toggleBtn = document.getElementById('theme-toggle');
+	const lightClass = 'light-mode';
+	function setTheme(dark) {
+		document.documentElement.classList.toggle(lightClass, dark);
+		toggleBtn.textContent = dark ? '☀️' : '🌙';
+		localStorage.setItem('theme', dark ? 'dark' : 'light');
+	}
+	toggleBtn.onclick = () => setTheme(!document.documentElement.classList.contains(lightClass));
+	// On load, set theme from localStorage or browser preference
+	const savedTheme = localStorage.getItem('theme');
+	if (savedTheme === 'light') {
+		setTheme(false);
+	} else if (savedTheme === 'dark') {
+		setTheme(true);
+	} else {
+		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		setTheme(!prefersDark);
+	}
+</script>
 
   <main style="width: 55%;">
 

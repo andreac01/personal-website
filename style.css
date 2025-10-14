@@ -180,3 +180,101 @@ a {
 a:hover, a:focus {
   color: #b3e6ff; /* Even lighter blue on hover/focus */
 }
+
+/* Odd-section styles */
+#odd-section {
+  background-color: #33394d;
+  color: #ECEFF4;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+/* Even-section styles */
+#even-section {
+  background-color: #222938;
+  color: #ECEFF4;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+#image-description {
+  font-size: 0.9rem;
+  color: #D8DEE9;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.about-photo {
+  background-color: #212731;
+  color: #ECEFF4;
+  padding: 3rem;
+  border-radius: 8px;
+  min-width: 10vh;
+  flex: 1 1;
+}
+
+/* Light Mode - Slightly Darker Palette with Higher Contrast */
+.light-mode {
+  --bg: #acc5df;
+  --bg-light: #678aac;
+  --fg: #1e2530;
+  --fg-muted: #3a4a5d;
+  --accent: #0e4258;
+  --accent2: #0b2c3c;
+  --accent3: #55bd68;
+}
+
+.light-mode html {
+  background-color: var(--bg);
+}
+.light-mode body {
+  color: var(--fg);
+}
+.light-mode header,
+.light-mode footer {
+  background: var(--bg-light);
+}
+.light-mode nav a {
+  color: var(--fg-muted);
+}
+.light-mode nav a:hover,
+.light-mode nav a.active {
+  color: var(--fg);
+}
+.light-mode .logo {
+  color: var(--accent);
+}
+.light-mode .card {
+  background: linear-gradient(180deg, rgba(230,238,247,0.92), rgba(194,211,228,0.85));
+  border-left-color: rgba(83,153,184,0.16);
+}
+.light-mode .card:hover {
+  border-left-color: var(--accent3);
+}
+.light-mode .card h3 {
+  color: var(--accent2);
+}
+.light-mode a {
+  color: #357a99;
+}
+.light-mode a:hover, .light-mode a:focus {
+  color: #5399b8;
+}
+.light-mode #image-description {
+  color: #3a4a5d;
+}
+/* Light mode for even-section */
+.light-mode #even-section {
+  background-color: #e6eef7;
+  color: #1e2530;
+}
+/* Light mode for odd-section */
+.light-mode #odd-section {
+  background-color: #dbe9fa;
+  color: #1e2530;
+}
+/* Light mode styles for .about-photo */
+.light-mode .about-photo {
+  background-color: #cbd6d6;
+  color: #1e2530;
+}

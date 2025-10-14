@@ -1,6 +1,6 @@
 # Andrea Cerutti — Personal Website
 
-Welcome! This repository contains the source code and content for my personal website.
+Welcome! This repository contains the source code and content for my [personal website](ceru-sh.site).
 
 ## About Me
 

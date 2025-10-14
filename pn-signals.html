@@ -7,23 +7,46 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
+  <header style="display: flex; align-items: center; justify-content: space-between;">
     <h1 class="logo">Andrea Cerutti</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="interpretability.html">MecInt</a></li>
-        <li><a href="pn-signals.html" class="active">PNRelay</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </nav>
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <button id="theme-toggle" aria-label="Toggle Dark/Light Mode" style="background: transparent; border: none; cursor: pointer;">🌙</button>
+      <nav>
+        <ul style="display: flex; gap: 1rem; margin: 0; padding: 0; list-style: none;">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="interpretability.html">MecInt</a></li>
+          <li><a href="pn-signals.html" class="active">PNRelay</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const lightClass = 'light-mode';
+    function setTheme(dark) {
+      document.documentElement.classList.toggle(lightClass, dark);
+      toggleBtn.textContent = dark ? '☀️' : '🌙';
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+    toggleBtn.onclick = () => setTheme(!document.documentElement.classList.contains(lightClass));
+    // On load, set theme from localStorage or browser preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      setTheme(false);
+    } else if (savedTheme === 'dark') {
+      setTheme(true);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(!prefersDark);
+    }
+  </script>
 
   <main style="width: 80%; padding: 1rem;">
     <div style="display: flex; flex-direction: column; gap: 2rem;">
       
       <!-- Intro Section -->
-      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+      <section id="even-section">
         <h2>The PNRelay Project</h2>
         <p>
           The <strong>PNRelay Project</strong> is a multidisciplinary research effort aimed at restoring
@@ -40,7 +63,7 @@
       </section>
 
       <!-- My Contribution -->
-      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+      <section id="odd-section">
         <h2>My Contribution: Signal Analysis & Classification</h2>
         <p>
           My main contribution within the PNRelay Project focuses on the <strong>Signal Analysis</strong> pipeline, 
@@ -49,8 +72,8 @@
           artificial neural relaying.
         </p>
         <div style="text-align:center; margin:1.5rem 0;">
-          <img src="images/preprocessing_pipeline.png" alt="ENG preprocessing pipeline" style="width:85%; border-radius:8px; background: #92a3b5;" />
-          <p style="font-size: 0.9rem; color: #D8DEE9;">Preprocessing pipeline for denoising and segmenting ENG signals.</p>
+          <img src="images/preprocessing_pipeline.png" alt="ENG preprocessing pipeline" style="width:85%; border-radius:8px; background: #b8c8d9;" />
+          <p id="image-description";">Preprocessing pipeline for denoising and segmenting ENG signals.</p>
         </div>
         <p>
           This work integrates <strong>signal processing, statistical outlier detection, and deep learning</strong>.
@@ -59,7 +82,7 @@
       </section>
 
       <!-- Signal Preprocessing -->
-      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+      <section id="even-section">
         <h3>1. Preprocessing & Noise Removal</h3>
         <p>
           ENG signals are extremely faint (below 50 µV) and heavily contaminated by electromyographic (EMG)
@@ -77,7 +100,7 @@
       </section>
 
       <!-- Outlier Removal -->
-      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+      <section id="odd-section">
         <h3>2. Outlier Removal via Power Spectral Density (PSD)</h3>
         <p>
           One of my key research contributions was the design of a <strong>PSD-based outlier removal algorithm</strong>,
@@ -87,7 +110,7 @@
         <div style="text-align:center; margin:1.5rem 0;">
           <img src="images/PSD_variance_pre.png" alt="PSD variance before removal" style="width:35%; border-radius:8px; margin-right:10px;" />
           <img src="images/PSD_variance_after.png" alt="PSD variance after removal" style="width:35%; border-radius:8px;" />
-          <p style="font-size: 0.9rem; color: #D8DEE9;">Variance of the Power Spectral Density before (left) and after (right) outlier removal.</p>
+          <p id="image-description";">Variance of the Power Spectral Density before (left) and after (right) outlier removal.</p>
         </div>
         <p>
           By iteratively removing samples exceeding <code>μ + 5σ</code> in the frequency domain, classification
@@ -97,7 +120,7 @@
       </section>
 
       <!-- Deep Learning -->
-      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+      <section id="even-section">
         <h3>3. Deep Learning for ENG Classification</h3>
         <p>
           I adapted and improved several <strong>Convolutional Neural Network architectures</strong> to classify ENG signals
@@ -109,7 +132,7 @@
           <li><strong>Inception Time (IT):</strong> A multiscale CNN model processing temporal features at different resolutions.</li>
           <li><strong>Single-Block IT:</strong> A lightweight variant reducing parameters by 7.5x with comparable accuracy.</li>
         </ul>
-        <div style="text-align:center; margin:1.5rem 0; background: #92a3b5; border-radius: 8px; padding: 1rem;">
+        <div style="text-align:center; margin:1.5rem 0; background: #b8c8d9; border-radius: 8px; padding: 1rem;">
           <img src="images/ENGNet.png" alt="ENGNet architecture" style="width:90%; border-radius:8px;" />
           <p style="font-size: 0.9rem; color: #222938;">ENGNet architecture adapted for ENG decoding.</p>
         </div>
@@ -120,11 +143,11 @@
       </section>
 
       <!-- Results -->
-      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+      <section id="odd-section">
         <h3>Results and Key Insights</h3>
         <div style="text-align:center; margin:1.5rem 0;">
-          <img src="images/DL_results.png" alt="Model performance comparison" style="width:60%; border-radius:8px;  background: #92a3b5;" />
-          <p style="font-size: 0.9rem; color: #D8DEE9;">Performance comparison of four deep learning architectures.</p>
+          <img src="images/DL_results.png" alt="Model performance comparison" style="width:60%; border-radius:8px;  background: #b8c8d9;" />
+          <p id="image-description";">Performance comparison of four deep learning architectures.</p>
         </div>
         <p>
           The proposed <strong>Reverse ENGNet</strong> achieved a <strong>20x computational speedup</strong>
@@ -135,7 +158,7 @@
       </section>
 
       <!-- Closing -->
-      <section style="background-color: #222938; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+      <section id="even-section">
         <h2>Conclusion</h2>
         <p>
           My work on the PNRelay Project contributed to developing an <strong>end-to-end signal analysis framework</strong>
@@ -153,7 +176,7 @@
       </section>
 
       <!-- Related Work -->
-      <section style="background-color: #33394d; color: #ECEFF4; padding: 2rem; border-radius: 8px;">
+      <section id="odd-section">
         <h3>Related Work</h3>
         <ul class="pnrelay-list" style="list-style-position: inside; padding-left: 1.5em;">
           <li>

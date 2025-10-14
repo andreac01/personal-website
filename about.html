@@ -7,21 +7,44 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
+  <header style="display: flex; align-items: center; justify-content: space-between;">
     <h1 class="logo">Andrea Cerutti</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="interpretability.html">MecInt</a></li>
-        <li><a href="pn-signals.html">PNRelay</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-      </ul>
-    </nav>
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <button id="theme-toggle" aria-label="Toggle Dark/Light Mode" style="background: transparent; border: none; cursor: pointer;">🌙</button>
+      <nav>
+        <ul style="display: flex; gap: 1rem; margin: 0; padding: 0; list-style: none;">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="interpretability.html">MecInt</a></li>
+          <li><a href="pn-signals.html">PNRelay</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const lightClass = 'light-mode';
+    function setTheme(dark) {
+      document.documentElement.classList.toggle(lightClass, dark);
+      toggleBtn.textContent = dark ? '☀️' : '🌙';
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+    toggleBtn.onclick = () => setTheme(!document.documentElement.classList.contains(lightClass));
+    // On load, set theme from localStorage or browser preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      setTheme(false);
+    } else if (savedTheme === 'dark') {
+      setTheme(true);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(!prefersDark);
+    }
+  </script>
 
   <main style="width: 80%; padding: 1rem;">
     <div class="about-columns" style="width: 100%; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2rem;">
-      <div class="about-photo" style="flex: 1 1; background-color: #212731; color: #ECEFF4; padding: 3rem; border-radius: 8px; min-width: 10vh;">
+      <div class="about-photo">
         <img src="images/myself.jpg" alt="Andrea Cerutti" style="max-width: 100%; height: auto; border-radius: 6px;" />
         <h2>Resources:</h2>
         <ul class="res-list" style="list-style-position: inside; padding-left: 1.5em;">
@@ -82,19 +105,23 @@
         <h2>Publications</h2>
         <ul class="pub-list" style="list-style-position: inside; padding-left: 1.5em;">
           <li>
-            <strong>Coviello et al.</strong> - Research on PNRelay for real-time ENG classification.
+            <strong>Coviello et al.</strong> <br>
+              <a href="https://ieeexplore.ieee.org/abstract/document/11059405/">PSD-Based Outlier Removal for Enhancing ENG Signal Analysis and Classification</a>
           </li>
           <li>
-            <strong>Burinato et al.</strong>* - Peripheral nerve injury rehabilitation.
+            <strong>Burinato et al.</strong>* <br>
+              <a href="https://re.public.polimi.it/retrieve/a20463f8-d4a3-42b3-938b-5e0f651fbdc3/paper%20eia%20bodynet%20ASP2.pdf">Advanced Implantable Devices and Data Analysis Techniques for Peripheral Nerve Injury Treatment: Challenges and Innovations</a>.
           </li>
           <li>
-            <strong>Zinzani et al.</strong>* - Robotic navigation in agricultural environments.
+            <strong>Zinzani et al.</strong> <br>
+             <a href="https://doi.org/10.18690/agricsci.21.1.1">Rover Kinematics for Maize Farming</a>.
           </li>
           <li>
-            <strong>Brunello et al.</strong>* - Accepted, yet to be published: Isolating Path Effect - BlackBox NLP Shared Task (EMNLP).
+            <strong>Brunello et al.</strong>* <br>
+            Accepted, yet to be published: "IPE: Isolating Path Effects for Improving Latent Circuit Identification" - BlackBox NLP Shared Task (EMNLP).
           </li>
         </ul>
-        <p><em>* Equal contribution</em></p>
+        <p><em>* Equal contribution as first author</em></p>
         <br></br>
 
         <h1>Curriculum Vitae</h1>
